@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/utec/Lab104/Proyecto_Final_POO/Menu.cpp
+Menu.h
+/home/utec/Lab104/Proyecto_Final_POO/Menu.h
+iostream
+-
+string
+-
+cstdio
+-
+
+/home/utec/Lab104/Proyecto_Final_POO/Menu.h
+Tierra.h
+/home/utec/Lab104/Proyecto_Final_POO/Tierra.h
+limits
+-
+
+/home/utec/Lab104/Proyecto_Final_POO/Objeto.h
+iostream
+-
+string
+-
+
+/home/utec/Lab104/Proyecto_Final_POO/Tierra.h
+iostream
+-
+vector
+-
+Objeto.h
+/home/utec/Lab104/Proyecto_Final_POO/Objeto.h
+
+/home/utec/Lab104/Proyecto_Final_POO/main.cpp
+iostream
+-
+SFML/Graphics.hpp
+-
+Menu.h
+/home/utec/Lab104/Proyecto_Final_POO/Menu.h
+
