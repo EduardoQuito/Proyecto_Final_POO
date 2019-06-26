@@ -28,6 +28,18 @@ iostream
 string
 -
 
+/home/utec/Lab104/Proyecto_Final_POO/Tierra.cpp
+Tierra.h
+/home/utec/Lab104/Proyecto_Final_POO/Tierra.h
+string
+-
+iomanip
+-
+algorithm
+-
+map
+-
+
 /home/utec/Lab104/Proyecto_Final_POO/Tierra.h
 iostream
 -
@@ -35,12 +47,14 @@ vector
 -
 Objeto.h
 /home/utec/Lab104/Proyecto_Final_POO/Objeto.h
+SFML/Graphics.hpp
+-
 
 /home/utec/Lab104/Proyecto_Final_POO/main.cpp
 iostream
 -
 SFML/Graphics.hpp
 -
-Menu.h
-/home/utec/Lab104/Proyecto_Final_POO/Menu.h
+Tierra.h
+/home/utec/Lab104/Proyecto_Final_POO/Tierra.h
 

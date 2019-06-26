@@ -6,22 +6,29 @@
 #include <string>
 #include <iomanip>
 #include <algorithm>
+#include <map>
+
+map<char, sf::Color> colores = {
+        {'R',sf::Color::Red},
+        {'B',sf::Color::Blue},
+        {'G',sf::Color::Green},
+};
 
 using namespace std;
 
 Tierra::Tierra() {
-    plano.resize(ALTURA);
-    for (auto& item: plano)
-        item.resize(ANCHO);
+    plano = nullptr;
 }
 
 Tierra::Tierra(int altura, int ancho) {
-    plano.resize(altura);
-    for (auto& item: plano)
-        item.resize(ancho);
+    plano = new sf::RenderWindow(
+            sf::VideoMode(ancho, altura), "Proyecto Final");
 }
 
-Tierra::~Tierra() {}
+Tierra::~Tierra() {
+    delete plano;
+    plano = nullptr;
+}
 
 void Tierra::adicionarObjeto(Objeto* objeto) {
     objetos.emplace_back(objeto);
@@ -54,36 +61,35 @@ void Tierra::imprimirObjetos() {
 }
 
 void Tierra::actualizarTierra() {
-    for (auto &row: plano)
-        for (auto &cell: row)
-            cell = COLOR;
-
-    for (auto& item: objetos)
-        plano[item->getPosX()][item->getPosY()]
-                = item->getColor();
+    for (auto& item: objetos){
+        sf::CircleShape shape(10);
+        shape.setFillColor(colores[item->getColor()]);
+        shape.setPosition(item->getPosX(),item->getPosY());
+        plano->draw(shape);
+    }
 }
 
 void Tierra::dibujarTierra() {
-    cout << '\n';
-    cout << setw(3) << ' ';
-    for (auto j = 0; j < getAncho(); ++j)
-        cout << setw(3) << j;
-    cout << '\n';
-
-    for (auto i = 0; i < getAltura(); ++i) {
-        cout << setw(3) << i;
-        for (auto j = 0; j < getAncho(); ++j) {
-            cout << setw(3) << plano[i][j];
+    if (plano == nullptr) return;
+    while (plano->isOpen())
+    {
+        sf::Event event;
+        while (plano->pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                plano->close();
         }
-        cout << '\n';
+        plano->clear();
+        actualizarTierra();
+        plano->display();
     }
 }
 
 int Tierra::getAltura() {
-    return plano.size();
+    return plano->getPosition().y;
 }
 
 int Tierra::getAncho(){
-    return plano[0].size();
+    return plano->getPosition().x;
 }
 

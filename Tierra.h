@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 #include "Objeto.h"
+#include <SFML/Graphics.hpp>
 
 using namespace std;
 
@@ -17,7 +18,7 @@ const char COLOR ='.';
 
 class Tierra {
 private:
-    vector<vector<char>> plano;
+    sf::RenderWindow* plano;
     vector<Objeto*> objetos;
 public:
     Tierra();
