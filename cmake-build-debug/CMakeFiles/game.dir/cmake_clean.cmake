@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/game.dir/Objeto.cpp.o"
   "CMakeFiles/game.dir/Tierra.cpp.o"
   "CMakeFiles/game.dir/Menu.cpp.o"
+  "CMakeFiles/game.dir/Tipos.cpp.o"
   "game.pdb"
   "game"
 )

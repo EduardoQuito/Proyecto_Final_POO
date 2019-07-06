@@ -1,12 +1,14 @@
 //
-// Created by utec on 21/06/19.
+// Created by HP on 4/07/2019.
 //
 
-#ifndef GAME_MENU_H
-#define GAME_MENU_H
+#ifndef CADENA_HOTELES_MENU_H
+#define CADENA_HOTELES_MENU_H
+
+
 
 #include "Tierra.h"
-#include <limits>
+#include "Tipos.h"
 
 template <typename T>
 T input(string label) {
@@ -22,6 +24,7 @@ T input(string label) {
 //--- Esta seria la funcion para leer un string,
 //--- esta funcion si se quiere generalizar para colocar un label
 //--- y leer cualquier tipo de dato se tendria que convertir al template anterior
+
 string&& input(string label) {
   string value;
   cout << label;
@@ -32,17 +35,39 @@ string&& input(string label) {
 
 
 class Menu {
-    int opcion;
+    TipoEntero opcion;
     Tierra tierra;
     void imprimirMenu();
     void seleccionarOpcion();
-    void agregarObjeto();
-    void removerObjeto();
+
+    //Agregar restaurantes, museos y hoteles
+    void agregarRestaurante(TipoEntero ancho);
+    void agregarHotel(TipoEntero ancho);
+    void agregarMuseo(TipoEntero ancho);
+
+    bool validarLugar(TipoEntero x, TipoEntero y);
+
+    //remover
+    void removerRestaurante();
     void dibujarMapa();
+
+    //Buscar restaurantes, museos y hoteles
+    void buscarRestaurante();
+    void buscarHotel();
+
+    //Buscar Clificacion
+    void buscarCalificacionRestaurante();
+    void buscarCalificacionHotel();
+
+    //Mover restaurantes, museos y hoteles
+    void moverRestaurante();
+    void moverHotel();
+
+    void numeroDispCeldas();
+    void numeroDispCeldasenY();
 public:
     Menu(): opcion{} {}
     void ejecutar();
 };
 
-
-#endif //GAME_MENU_H
+#endif //CADENA_HOTELES_MENU_H

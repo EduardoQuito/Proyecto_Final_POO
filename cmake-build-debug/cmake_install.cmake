@@ -1,4 +1,4 @@
-# Install script for directory: /home/utec/Lab104/Proyecto_Final_POO
+# Install script for directory: /home/utec/Final/Proyecto_Final_POO
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/utec/Lab104/Proyecto_Final_POO/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/utec/Final/Proyecto_Final_POO/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

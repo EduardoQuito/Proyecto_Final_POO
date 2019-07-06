@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0)
 
 project(game)
 
-set(SOURCE main.cpp Objeto.cpp Objeto.h Tierra.cpp Tierra.h Menu.cpp Menu.h)
+set(SOURCE main.cpp Objeto.cpp Objeto.h Tierra.cpp Tierra.h Menu.cpp Menu.h Tipos.cpp Tipos.h)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 

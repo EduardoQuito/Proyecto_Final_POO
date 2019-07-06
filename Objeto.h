@@ -1,34 +1,48 @@
 //
-// Created by utec on 21/06/19.
+// Created by HP on 4/07/2019.
 //
 
-#ifndef GAME_OBJETO_H
-#define GAME_OBJETO_H
+#ifndef CADENA_HOTELES_OBJETO_H
+#define CADENA_HOTELES_OBJETO_H
+
+
 
 #include <iostream>
-#include <string>
+#include "Tipos.h"
 
 using namespace std;
 
-class Objeto{;
+class Objeto {
 private:
-    string nombre;
-    char  color;
-    int    posX;
-    int    posY;
+    string        nombre;
+    TipoCaracter  color;
+    TipoEntero    posX;
+    TipoEntero    posY;
+    TipoEntero    calificacion;
+    TipoEntero    ancho;  // cuadrado
+
 public:
     Objeto();
-    Objeto(const string& nombre, char color,
-           int posX, int posY);
+    Objeto(const TipoString& nombre, TipoCaracter color,
+           TipoEntero posX, TipoEntero posY, TipoEntero calificacion);
+    Objeto(const TipoString& nombre, TipoCaracter color,
+           TipoEntero posX, TipoEntero posY,TipoEntero calificacion, TipoEntero ancho);
     virtual ~Objeto();
-    void setNombre(const string& nombre);
+    void setNombre(const TipoString& nombre);
     string     getNombre();
-    int getPosX();
-    int getPosY();
+    TipoEntero getPosX();
+    TipoEntero getPosY();
+    TipoEntero getCalificacion();
+
+    void setPosX(TipoEntero x) { posX = x; };
+    void setPosY(TipoEntero y) { posY = y; }
+    void setCalificacion(TipoEntero cali) { calificacion = cali; }
+
+    void setAncho(TipoEntero a) { ancho = a; };
+    TipoEntero getAncho() { return ancho; };
     char getColor();
-    void moverse(int x, int y);
+    void moverse(TipoEntero x, TipoEntero y);
     string mostrarPosicion();
 };
 
-
-#endif //GAME_OBJETO_H
+#endif //CADENA_HOTELES_OBJETO_H

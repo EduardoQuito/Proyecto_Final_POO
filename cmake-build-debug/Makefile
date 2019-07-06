@@ -51,10 +51,10 @@ RM = /snap/clion/73/bin/cmake/linux/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/utec/Lab104/Proyecto_Final_POO
+CMAKE_SOURCE_DIR = /home/utec/Final/Proyecto_Final_POO
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/utec/Lab104/Proyecto_Final_POO/cmake-build-debug
+CMAKE_BINARY_DIR = /home/utec/Final/Proyecto_Final_POO/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -83,9 +83,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utec/Lab104/Proyecto_Final_POO/cmake-build-debug/CMakeFiles /home/utec/Lab104/Proyecto_Final_POO/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utec/Final/Proyecto_Final_POO/cmake-build-debug/CMakeFiles /home/utec/Final/Proyecto_Final_POO/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utec/Lab104/Proyecto_Final_POO/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utec/Final/Proyecto_Final_POO/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -207,6 +207,33 @@ Tierra.cpp.s:
 	$(MAKE) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/Tierra.cpp.s
 .PHONY : Tierra.cpp.s
 
+Tipos.o: Tipos.cpp.o
+
+.PHONY : Tipos.o
+
+# target to build an object file
+Tipos.cpp.o:
+	$(MAKE) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/Tipos.cpp.o
+.PHONY : Tipos.cpp.o
+
+Tipos.i: Tipos.cpp.i
+
+.PHONY : Tipos.i
+
+# target to preprocess a source file
+Tipos.cpp.i:
+	$(MAKE) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/Tipos.cpp.i
+.PHONY : Tipos.cpp.i
+
+Tipos.s: Tipos.cpp.s
+
+.PHONY : Tipos.s
+
+# target to generate assembly for a file
+Tipos.cpp.s:
+	$(MAKE) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/Tipos.cpp.s
+.PHONY : Tipos.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -252,6 +279,9 @@ help:
 	@echo "... Tierra.o"
 	@echo "... Tierra.i"
 	@echo "... Tierra.s"
+	@echo "... Tipos.o"
+	@echo "... Tipos.i"
+	@echo "... Tipos.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

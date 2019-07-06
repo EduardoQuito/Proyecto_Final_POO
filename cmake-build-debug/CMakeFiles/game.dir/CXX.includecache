@@ -6,9 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/utec/Lab104/Proyecto_Final_POO/Menu.cpp
+/home/utec/Final/Proyecto_Final_POO/Menu.cpp
 Menu.h
-/home/utec/Lab104/Proyecto_Final_POO/Menu.h
+/home/utec/Final/Proyecto_Final_POO/Menu.h
 iostream
 -
 string
@@ -16,45 +16,57 @@ string
 cstdio
 -
 
-/home/utec/Lab104/Proyecto_Final_POO/Menu.h
+/home/utec/Final/Proyecto_Final_POO/Menu.h
 Tierra.h
-/home/utec/Lab104/Proyecto_Final_POO/Tierra.h
-limits
--
+/home/utec/Final/Proyecto_Final_POO/Tierra.h
+Tipos.h
+/home/utec/Final/Proyecto_Final_POO/Tipos.h
 
-/home/utec/Lab104/Proyecto_Final_POO/Objeto.h
+/home/utec/Final/Proyecto_Final_POO/Objeto.cpp
+Objeto.h
+/home/utec/Final/Proyecto_Final_POO/Objeto.h
+
+/home/utec/Final/Proyecto_Final_POO/Objeto.h
 iostream
 -
-string
--
+Tipos.h
+/home/utec/Final/Proyecto_Final_POO/Tipos.h
 
-/home/utec/Lab104/Proyecto_Final_POO/Tierra.cpp
+/home/utec/Final/Proyecto_Final_POO/Tierra.cpp
 Tierra.h
-/home/utec/Lab104/Proyecto_Final_POO/Tierra.h
+/home/utec/Final/Proyecto_Final_POO/Tierra.h
 string
 -
 iomanip
 -
 algorithm
 -
-map
+nl_types.h
 -
 
-/home/utec/Lab104/Proyecto_Final_POO/Tierra.h
+/home/utec/Final/Proyecto_Final_POO/Tierra.h
 iostream
 -
 vector
 -
+Tipos.h
+/home/utec/Final/Proyecto_Final_POO/Tipos.h
 Objeto.h
-/home/utec/Lab104/Proyecto_Final_POO/Objeto.h
-SFML/Graphics.hpp
+/home/utec/Final/Proyecto_Final_POO/Objeto.h
+
+/home/utec/Final/Proyecto_Final_POO/Tipos.cpp
+Tipos.h
+/home/utec/Final/Proyecto_Final_POO/Tipos.h
+
+/home/utec/Final/Proyecto_Final_POO/Tipos.h
+string
+-
+limits
 -
 
-/home/utec/Lab104/Proyecto_Final_POO/main.cpp
+/home/utec/Final/Proyecto_Final_POO/main.cpp
 iostream
 -
-SFML/Graphics.hpp
--
-Tierra.h
-/home/utec/Lab104/Proyecto_Final_POO/Tierra.h
+Menu.h
+/home/utec/Final/Proyecto_Final_POO/Menu.h
 

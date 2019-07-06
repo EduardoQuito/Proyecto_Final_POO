@@ -1,38 +1,76 @@
 //
-// Created by utec on 21/06/19.
+// Created by HP on 4/07/2019.
 //
 
-#ifndef GAME_TIERRA_H
-#define GAME_TIERRA_H
+#ifndef CADENA_HOTELES_TIERRA_H
+#define CADENA_HOTELES_TIERRA_H
+
 
 #include <iostream>
 #include <vector>
+#include "Tipos.h"
 #include "Objeto.h"
-#include <SFML/Graphics.hpp>
 
 using namespace std;
 
-const int ALTURA = 21;
-const int ANCHO  = 21;
-const char COLOR ='.';
+// Valores constantes
+const TipoEntero ALTURA = 21;
+const TipoEntero ANCHO  = 21;
+const TipoCaracter COLOR ='.';
 
 class Tierra {
 private:
-    sf::RenderWindow* plano;
-    vector<Objeto*> objetos;
+    vector<vector<char>> plano;
+    vector<Objeto*> restaurantes;
+    vector<Objeto*> hoteles;
+    vector<Objeto*> Museo;
 public:
     Tierra();
-    Tierra(int altura, int ancho);
+    Tierra(TipoEntero altura, TipoEntero ancho);
     virtual ~Tierra();
-    void adicionarObjeto(Objeto* objeto);
-    Objeto* removerObjeto(string& nombre);
-    void imprimirObjetos();
-    int getAltura();
-    int getAncho();
-    int getCantidadObjectos();
+    //buscar
+    Objeto buscarObjetoRestaurante(string nombre);
+    Objeto buscarObjetoHotel(string nombre);
+
+    //buscar por calificacion
+    Objeto buscarCalificacionRestaurante(TipoEntero calificacion);
+    Objeto buscarCalificacionHotel(TipoEntero calificacion);
+
+    //Mover
+    void moverRestaurante(string nombre, TipoEntero x, TipoEntero y);
+    void moverHotel(string nombre, TipoEntero x, TipoEntero y);
+
+    //Validar lugares
+    //----Restaurante
+    bool validarLugarRestaurante(TipoEntero x, TipoEntero y);
+    bool validarNombreRestaurante(string nombre);
+    bool validarRestaurante(TipoEntero x, TipoEntero y, TipoEntero ancho);
+    //----Hotel
+    bool validarLugarHotel(TipoEntero x, TipoEntero y);
+    bool validarNombreHotel(string nombre);
+    bool validarHotel(TipoEntero x, TipoEntero y, TipoEntero ancho);
+
+    //Adicionar
+    void adicionarObjetoBoss(Objeto* objeto);
+    void adicionarRestaurante(Objeto* restaurante);
+    void adicionarHotel(Objeto* hotel);
+
+    //remover
+    bool removerRestaurante(string& nombre);
+
+    //imprimir
+    void imprimirRestaurante();
+    void imprimirHotel();
+    void imprimirMuseo();
+    TipoEntero getAltura();
+    TipoEntero getAncho();
+    TipoEntero getCantidadObjectos();
+    TipoEntero contarPlano();
+    TipoEntero contarColumna();
     void dibujarTierra();
     void actualizarTierra();
+    void crearPiedras(int cantidad);
 };
 
 
-#endif //GAME_TIERRA_H
+#endif //CADENA_HOTELES_TIERRA_H

@@ -1,28 +1,37 @@
-//
-// Created by utec on 21/06/19.
-//
 
 #include "Objeto.h"
 
-#include "Objeto.h"
+Objeto::Objeto() : color{}, posX{}, posY{}, calificacion{} { ancho = 1; }
 
-Objeto::Objeto(): color{}, posX{}, posY{}  {}
-
-Objeto::Objeto(const string& nombre, char color,
-               int posX, int posY):
+Objeto::Objeto(const TipoString& nombre, TipoCaracter color,
+               TipoEntero posX, TipoEntero posY, TipoEntero calificacion):
         nombre{nombre}, color{color},
-        posX{posX}, posY{posY} {}
+        posX{ posX }, posY{ posY }, calificacion{} { ancho = 1; }
+
+Objeto::Objeto(const TipoString& nombre, TipoCaracter color, TipoEntero posX, TipoEntero posY, TipoEntero calificacion, TipoEntero ancho)
+{
+    this->setNombre(nombre);
+    this->color = color;
+    this->setPosX(posX);
+    this->setPosY(posY);
+    this->setCalificacion(calificacion);
+    this->setAncho(ancho);
+}
 
 Objeto::~Objeto() {}
 
-void Objeto::setNombre(const string& nombre) { this->nombre = nombre; }
-void Objeto::moverse(int x, int y) {} //--  por implementar
+void Objeto::setNombre(const TipoString& nombre) { this->nombre = nombre; }
+void Objeto::moverse(TipoEntero x, TipoEntero y) {
+    posX = x;
+    posY = y;
+} //--  por implementar
 
-string  Objeto::getNombre() { return nombre; }
-int   Objeto::getPosX()   { return posX; }
-int  Objeto::getPosY()   { return posY; }
-char Objeto::getColor()  { return color; }
+TipoString   Objeto::getNombre() { return nombre; }
+TipoEntero   Objeto::getPosX()   { return posX; }
+TipoEntero   Objeto::getPosY()   { return posY; }
+TipoEntero   Objeto::getCalificacion(){ return calificacion; }
+TipoCaracter Objeto::getColor()  { return color; }
 
-string Objeto::mostrarPosicion() {
-    return "X = " + to_string(posX) + " Y = " + to_string(posY);
+TipoString Objeto::mostrarPosicion() {
+    return  getNombre() + " :: X = " + to_string(posX) + " :: Y = " + to_string(posY)+ " :: calificacion = " + to_string(calificacion);
 }

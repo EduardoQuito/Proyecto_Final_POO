@@ -1,6 +1,3 @@
-//
-// Created by utec on 21/06/19.
-//
 
 #include "Menu.h"
 #include <iostream>
@@ -9,8 +6,8 @@
 
 using namespace std;
 
-enum class Opciones { Agregar=1, Remover, Mostrar};
-
+enum class Opciones { AgregarRestaurante=1,AgregarHotel,RemoverRestaurante, Mostrar, BuscarRestaurante,BuscarHotel,
+    MoverRestaurante, MoverHotel, CeldasOcupadas, CeldasOcupadasColumna, CalificacionRestaurante, CalificacionHotel};
 
 void limpiar() {
     cout << "\033[2J\033[0;0H";
@@ -19,71 +16,286 @@ void limpiar() {
 void esperar() {
     char w;
     do {
-        w = input<int>("Presione C y Enter para continuar...");
+        w = input<TipoCaracter>("\nPresione C y Enter para continuar...");
     }while (toupper(w) != 'C');
 }
 
 void Menu::imprimirMenu() {
-    limpiar();
-    cout << "MENU\n";
-    cout << string(4, '-') << "\n\n";
-    cout << "1. Agregar un nuevo objeto\n";
-    cout << "2. Remover objeto\n";
-    cout << "3. Dibujar Mapa\n\n";
-    cout << "0. Para Salir\n\n";
+    dibujarMapa();
+    cout << "    MENU \n[1] Agregar restaurante (#) \n[2] Agregar hotel ($) \n[3] Remover restaurantes "
+            "\n[4] Dibujar mapa \n[5] Buscar restaurante\n[6] Buscar hotel \n[7] Mover restaurante \n[8] Mover hotel"
+            " \n[9] Celdas ocupadas\n[10] Celdas ocupadas en Columna \n[11] Buscar Restaurante por calificaion"
+            "\n[12] Buscar Hotel por calificaion \n\n[13] Salir del programa ";
+}
+//-----------------------------------------------------------------------
+//----------AGREGRAR RESTAURANTES, HOTELES Y MUSEOS----------------------
+//-----------------------------------------------------------------------
+
+void Menu::agregarRestaurante(TipoEntero ancho){
+    TipoString nombre;
+    TipoCaracter color;
+    TipoEntero x;
+    TipoEntero y;
+    TipoEntero cali;
+    bool invalido = true;
+
+    while (invalido) {
+        limpiar();
+        tierra.dibujarTierra();
+        tierra.imprimirRestaurante();
+        color = '#';
+        nombre = input<TipoString>("Ingrese Nombre : ");
+        x = input<TipoEntero>("Ingrese posicion X : ");
+        y = input<TipoEntero>("Ingrese posicion Y : ");
+        cali = input<TipoEntero>("Ingrese calificacion : ");
+
+        if (x < 0 || x >= tierra.getAncho() - ancho) {
+            cout << "Posicion X Incorrecta, los limites son: 0, "
+                 << tierra.getAncho() - ancho << "\n";
+            esperar();
+            continue;
+        }
+
+        if (y < 0 || y >= tierra.getAncho() - ancho) {
+            cout << "(¡!) Posicion Y Incorrecta, los limites son: 0, "
+                 << tierra.getAltura() - ancho << "\n";
+            esperar();
+            continue;
+        }
+
+        // Validar que no choque con un hotel
+        if (tierra.validarHotel(x, y,ancho)) {
+            cout << "Posicion ocuoada por un hotel." << endl;
+            esperar();
+            continue;
+        }
+
+        // Dos restaurantes no pueden tener el mismo nombre
+        if (tierra.validarNombreRestaurante( nombre )) {
+            cout << "Nombre ya existente, ingrese otro:" << endl;
+            esperar();
+            continue;
+        }
+        //No puedo agregar dos restaurantes en un mismo lugar
+        if (tierra.validarLugarRestaurante(x, y)) {
+            cout << "Lugar Ocupado:" << endl;
+            esperar();
+            continue;
+        }
+        invalido = false;
+    }
+    tierra.adicionarRestaurante(new Objeto(nombre, color, x, y,cali, ancho));
+}
+void Menu::agregarHotel(TipoEntero ancho){
+    TipoString nombre;
+    TipoCaracter color;
+    TipoEntero x;
+    TipoEntero y;
+    TipoEntero cali;
+    bool invalido = true;
+
+    while (invalido) {
+        limpiar();
+        tierra.dibujarTierra();
+        tierra.imprimirHotel();
+        color = '$';
+        nombre = input<TipoString>("Ingrese Nombre : ");
+        x = input<TipoEntero>("Ingrese posicion X : ");
+        y = input<TipoEntero>("Ingrese posicion Y : ");
+        cali = input<TipoEntero>("Ingrese alificacion: ");
+
+        if (x < 0 || x >= tierra.getAncho() - ancho) {
+            cout << "Posicion X Incorrecta, los limites son: 0, "
+                 << tierra.getAncho() - ancho << "\n";
+            esperar();
+            continue;
+        }
+
+        if (y < 0 || y >= tierra.getAncho() - ancho) {
+            cout << "(¡!) Posicion Y Incorrecta, los limites son: 0, "
+                 << tierra.getAltura() - ancho << "\n";
+            esperar();
+            continue;
+        }
+
+        // Validar que no choque con un restaurante
+        if (tierra.validarHotel(x, y,ancho)) {
+            cout << "Posicion ocupado por restaurante" << endl;
+            esperar();
+            continue;
+        }
+
+        // Dos hoteles no pueden tener el mismo nombre
+        if (tierra.validarNombreRestaurante( nombre )) {
+            cout << "Hotel nombre ya existe, ingrese otro:" << endl;
+            esperar();
+            continue;
+        }
+        //No puedo hoteles dos restaurantes en un mismo lugar
+        if (tierra.validarLugarRestaurante(x, y)) {
+            cout << "Lugar Ocupado:" << endl;
+            esperar();
+            continue;
+        }
+        invalido = false;
+    }
+    tierra.adicionarHotel(new Objeto(nombre, color, x, y,cali, ancho));
 }
 
+//-----------------------------------------------------------------------
+//----------AGREGRAR RESTAURANTES, HOTELES Y MUSEOS----------------------
+//------------------------------------------------------------------------------
+void Menu::removerRestaurante(){
+    auto nombre = input<TipoString>("Nombre del Robot: ");
 
-void Menu::agregarObjeto() {
-    auto    nombre = input<string>("Ingrese Nombre : ");
-    auto color  = input<char>("Ingrese color (Un caracter): ");
-
-    auto x = input<int>("Ingrese posicion X : ");
-
-
-    while (x < 0 || x >= tierra.getAncho()) {
-        cout << "Posicion X Incorrecta, los limites son: 0, "
-             << tierra.getAncho() - 1 << "\n";
-        x = input<int>("Ingrese posicion X : ");
+    if( !tierra.removerRestaurante(nombre) )
+    {
+        cout << " NO existe...\n";
     }
-
-    int y = input<int>("Ingrese posicion Y : ");
-    while (y < 0 || y >= tierra.getAncho()) {
-        cout  << "Posicion Y Incorrecta, los limites son: 0, "
-              << tierra.getAltura() - 1 << "\n";
-        y = input<int>("Ingrese posicion Y : ");
-    }
-
-    tierra.adicionarObjeto(new Objeto(nombre, color, x, y));
-}
-
-void Menu::removerObjeto() {
-    auto nombre = input<string>("Ingrese Nombre: ");
-
-    Objeto* obj = tierra.removerObjeto(nombre);
-    if (obj == nullptr) {
-        cout << "Objeto No existe\n";
-    }
-    else {
-        delete obj;
-        cout << "Objeto: " << nombre << " ha sido removido\n";
+    else
+    {
+        cout << "Restaurante " << nombre << " ha sido removido\n";
     }
     esperar();
 }
 
 void Menu::dibujarMapa() {
-    limpiar();
     tierra.actualizarTierra();
     tierra.dibujarTierra();
-    cout << '\n';
-    tierra.imprimirObjetos();
-    cout << '\n';
+    tierra.imprimirRestaurante();
+    tierra.imprimirHotel();
+}
+
+
+//-----------------------------------------------------------------------
+//----------BUSCAR RESTAURANTES, HOTELES Y MUSEOS----------------------
+//-----------------------------------------------------------------------
+
+void Menu::buscarRestaurante(){
+    string nombre;
+    cout << "Nombre del Restaurante: ";
+    cin >> nombre;
+    Objeto oBusco = tierra.buscarObjetoRestaurante(nombre);
+    if (oBusco.getNombre() == nombre) {
+        tierra.dibujarTierra();
+        cout << endl << oBusco.mostrarPosicion();
+    }
+    else {
+        cout << endl << "El restaurante no existe";
+    }
+    esperar();
+}
+void Menu::buscarHotel(){
+    string nombre;
+    cout << "Nombre del hotel: ";
+    cin >> nombre;
+    Objeto oBusco = tierra.buscarObjetoHotel(nombre);
+    if (oBusco.getNombre() == nombre) {
+        tierra.dibujarTierra();
+        cout << endl << oBusco.mostrarPosicion();
+    }
+    else {
+        cout << endl << "El hotel no existe";
+    }
     esperar();
 }
 
+//----------BUSCAR POR CALIFICACIONES----------------------
+void Menu::buscarCalificacionRestaurante(){
+    TipoEntero calificacion;
+    cout << "Calificacion: ";
+    cin >> calificacion;
+    Objeto oBusco = tierra.buscarCalificacionRestaurante(calificacion);
+    int x=0;
+    tierra.dibujarTierra();
+    while(x<3)
+    {if (oBusco.getCalificacion() == calificacion) {
+            cout << endl << oBusco.mostrarPosicion();
+        }
+        else {
+            cout << endl << "El restaurante no existe";
+        }x++;
+    }
+    esperar();
+}
+
+void Menu::buscarCalificacionHotel(){
+    TipoEntero calificacion;
+    cout << "Calificacion: ";
+    cin >> calificacion;
+    Objeto oBusco = tierra.buscarCalificacionHotel(calificacion);
+    if (oBusco.getCalificacion() == calificacion) {
+        tierra.dibujarTierra();
+        cout << endl << oBusco.mostrarPosicion();
+    }
+    else {
+        cout << endl << "El hotel no existe";
+    }
+    esperar();
+}
+
+//----------MOVER RESTAURANTES, HOTELES Y MUSEOS----------------------
+void Menu::moverRestaurante(){
+    string nombre;
+    TipoEntero x, y;
+    cout << "Nombre del restaurante: ";
+    cin >> nombre;
+    Objeto oBusco = tierra.buscarObjetoRestaurante(nombre);
+    if (oBusco.getNombre() == nombre) {
+        cout << "Ingrese la nueva posicion X: ";
+        cin >> x;
+        cout << "Ingrese la nueva posicion Y: ";
+        cin >> y;
+        // Validar que tome lugar en lugar ocupado
+        if (tierra.validarRestaurante(x, y, oBusco.getAncho())) {
+            cout << "(¡!) Posicion (X,Y) Incorrecta,ocupado" << endl;
+            esperar();
+            return;
+        }
+        tierra.moverRestaurante(nombre, x, y);
+        tierra.actualizarTierra();
+    }
+    else {
+        cout << endl << "El Restaurante que busca no existe";
+    }
+}
+void Menu::moverHotel(){
+    string nombre;
+    TipoEntero x, y;
+    cout << "Nombre del hotel: ";
+    cin >> nombre;
+    Objeto oBusco = tierra.buscarObjetoHotel(nombre);
+    if (oBusco.getNombre() == nombre) {
+        cout << "Ingrese la nueva posicion X: ";
+        cin >> x;
+        cout << "Ingrese la nueva posicion Y: ";
+        cin >> y;
+        // Validar que tome kugar en lugar ocupado
+        if (tierra.validarHotel(x, y, oBusco.getAncho())) {
+            cout << "(¡!) Posicion (X,Y) Incorrecta,ocupado" << endl;
+            esperar();
+            return;
+        }
+        tierra.moverHotel(nombre, x, y);
+        tierra.actualizarTierra();
+    }
+    else {
+        cout << endl << "El Hotel que busca no existe";
+    }
+}
+
+
+void Menu::numeroDispCeldas(){
+    cout << "\nEl numero de celdas ocupadas: " << 400-tierra.contarPlano()<<endl;
+}
+void Menu::numeroDispCeldasenY(){
+    cout << tierra.contarColumna()<<endl;
+}
 void Menu::ejecutar() {
     do {
+        limpiar();
         imprimirMenu();
+        cout << "\n\n>> Ingrese alternativa: ";
         cin >> opcion;
         seleccionarOpcion();
     } while (opcion != 0);
@@ -91,16 +303,42 @@ void Menu::ejecutar() {
 }
 
 void Menu::seleccionarOpcion() {
-    limpiar();
     switch(Opciones(opcion)) {
-        case Opciones::Agregar:  // Agregar Objeto
-            agregarObjeto();
+        case Opciones::AgregarRestaurante:  // Agregar Restaurante
+            agregarRestaurante(1);
             break;
-        case Opciones::Remover:  // Remover Objeto
-            removerObjeto();
+        case Opciones::AgregarHotel:  // Agregar Restaurante
+            agregarHotel(1);
+            break;
+        case Opciones::RemoverRestaurante:  // Remover Restaurante
+            removerRestaurante();
             break;
         case  Opciones::Mostrar: // Dibujando Tierra
             dibujarMapa();
+            break;
+        case  Opciones::BuscarRestaurante: // Buscar Restaurante
+            buscarRestaurante();
+            break;
+        case  Opciones::BuscarHotel: // Buscar Hotel
+            buscarHotel();
+            break;
+        case  Opciones::MoverRestaurante: // Mover Restaurante
+            moverRestaurante();
+            break;
+        case  Opciones::MoverHotel: // Mover Restaurante
+            moverHotel();
+            break;
+        case Opciones::CeldasOcupadas: // Contador de celdas ocupadas
+            numeroDispCeldas();
+            break;
+        case Opciones::CeldasOcupadasColumna: // Contador de celdas ocupadas en columnas
+            numeroDispCeldasenY();
+            break;
+        case Opciones::CalificacionRestaurante: // Restaurante por calificacion
+            buscarCalificacionRestaurante();
+            break;
+        case Opciones::CalificacionHotel: // Hotel por calificacion
+            buscarCalificacionHotel();
             break;
     }
 }
